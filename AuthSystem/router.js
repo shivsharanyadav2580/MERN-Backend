@@ -9,10 +9,10 @@ const router = express.Router();
 const userDetails = [
   {
     userName: "shivsharanyadav",
-    name: "Shivsharan",
-    email: "shivsharanyadav9516@gmail.com",
+    // name: "Shivsharan",
+    // email: "shivsharanyadav9516@gmail.com",
     password: "$2b$10$dummyhash",
-    cart: [],
+    // cart: [],
   },
 ];
 
@@ -31,16 +31,19 @@ router.post("/signup", async (req, res) => {
   if (existingUser) {
     return res.status(409).send("User already exists");
   }
+router.post("/signup", async (req, res) => {
+  const userData = req.body;
+  const { userName, password } = userData;
 
   const hashedPassword = await generateHash(password);
 
-  const newUser = {
-    userName,
-    name,
-    email,
-    password: hashedPassword,
-    cart: [],
-  };
+  // const newUser = {
+  //   userName,
+  //   name,
+  //   email,
+  //   password: hashedPassword,
+  //   cart: [],
+  // };
 
   userDetails.push(newUser);
 
