@@ -3,7 +3,15 @@ const { generateToken } = require("./jwtUtil");
 const { sanitizeUserData } = require("./utils");
 const router = express.Router();
 
-const userDetails = [];
+const userDetails = [
+  {
+    username: "shivsharan yadav",
+    name: "shivsharan",
+    email: "shivsharanyadav9516@gmail.com",
+    password: "shivsharan@123",
+    cart: [],
+  }
+];
 
 // dummy helpers (maan lo ye sahi kaam kar rahe hain)
 const hashPassword = async (pwd) => pwd + "_hashed";
@@ -57,6 +65,14 @@ router.post("/login", async (req, res) => {
     data: sanitizeUserData(userData),
     message: `User ${userData.username} logged in successfully`,
   });
+});
+router.get("/logout", (req, res) => {
+  res.cookie("authToken", "", {
+    httpOnly: true,
+    maxAge: 0,
+    
+  });
+  res.send({ message: "User logged out successfully" });
 });
 
 module.exports = router;
